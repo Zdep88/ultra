@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [ $# -eq 3 ]; then
     giturl="$1"
     domain="$2"

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 npm i
 cp .env.example .env
 sudo nano .env

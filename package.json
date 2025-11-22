@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "node ./back/index.js",
-    "build": "bash ./bash/build.sh",
+    "build": "sh ./bash/build.sh",
     "new_site": "sh ./bash/new_site.sh",
     "certbot": "sh ./bash/certbot.sh"
   },
