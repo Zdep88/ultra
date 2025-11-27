@@ -5,7 +5,7 @@
     "devFront": "vite",
     "devBack": "node --watch ./back/index.js",
     "start": "node ./back/index.js",
-    "build": "bash ./bash/build.sh && sh ./bash/restart.sh",
+    "build": "bash ./bash/build.sh && cd $HOME && pm2 delete all && pm2 start ecosystem.config.js && sh ./bash/restart.sh",
     "new_site": "sh ./bash/new_site.sh",
     "certbot": "sh ./bash/certbot.sh"
   },
