@@ -16,7 +16,3 @@ sudo nginx -t && sudo systemctl restart nginx
 sudo sed -i "/apps : \[/r $HOME/ultra/templates/ecobloc.txt" $HOME/ecosystem.config.js
 sudo sed -i "s/name : \"\",/name : \"ultra\",/g" $HOME/ecosystem.config.js
 sudo sed -i "s/cwd : \"\",/cwd : \"ultra\",/g" $HOME/ecosystem.config.js
-cd $HOME && pm2 delete all
-cd $HOME && pm2 start ecosystem.config.js
-pm2 save
-cd $HOME/ultra && clear && pm2 ls && npm run
