@@ -17,19 +17,20 @@ https://github.com/settings/keys
 
 ```sh
 # Information gathering
-echo
+clear
 read -p "Enter full name : " name # required for Git
 read -p "Enter email : " email # required for SSH & Git
-read -p "Enter psql password : " password # required for postgres
+read -p "Enter psql password : " password -s # required for postgres
+clear
 
 # SSH Key creation
 ssh-keygen -t ed25519 -C $email -f $HOME/.ssh/id_ed25519 -N ""
 eval "$(ssh-agent -s)"
 ssh-add $HOME/.ssh/id_ed25519
-echo
+clear
 cat $HOME/.ssh/id_ed25519.pub
 read -p "Copy SSH key, then press any key to continue." -n 1 -s
-echo
+clear
 
 # global upgrade
 sudo apt update && sudo apt upgrade -y
