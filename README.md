@@ -79,7 +79,5 @@ sudo env "PATH=$PATH:$HOME/.nvm/versions/node/$(node -v)/bin" $HOME/.nvm/version
 sudo cp $HOME/ultra/templates/ecosystem.txt $HOME/ecosystem.config.js
 
 # Step 2 Installation
-cd $HOME/ultra
-clear
-npm run build
+cd $HOME/ultra && npm run build
 ```
