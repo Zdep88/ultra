@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "devFront": "vite",
-    "dev": "node --watch ./back/index.js",
-    "buildFront": "vite build",
+    "devBack": "node --watch ./back/index.js",
     "start": "node ./back/index.js",
     "build": "bash ./bash/build.sh",
     "new_site": "sh ./bash/new_site.sh",

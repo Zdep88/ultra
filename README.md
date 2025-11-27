@@ -78,6 +78,8 @@ pm2 startup
 sudo env "PATH=$PATH:$HOME/.nvm/versions/node/$(node -v)/bin" $HOME/.nvm/versions/node/$(node -v)/lib/node_modules/pm2/bin/pm2 startup systemd -u $USER --hp $HOME
 sudo cp $HOME/ultra/templates/ecosystem.txt $HOME/ecosystem.config.js
 
-# Scripts presentation
-cd $HOME/ultra && clear && npm run
+# Step 2 Installation
+cd $HOME/ultra &&
+clear &&
+npm run build
 ```
