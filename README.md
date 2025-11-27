@@ -79,5 +79,5 @@ sudo env "PATH=$PATH:$HOME/.nvm/versions/node/$(node -v)/bin" $HOME/.nvm/version
 sudo cp $HOME/ultra/templates/ecosystem.txt $HOME/ecosystem.config.js
 
 # Scripts presentation
-cd $HOME/ultra && echo && npm run
+cd $HOME/ultra && clear && npm run
 ```
