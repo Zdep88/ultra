@@ -19,4 +19,4 @@ sudo sed -i "s/cwd : \"\",/cwd : \"ultra\",/g" $HOME/ecosystem.config.js
 cd $HOME && pm2 delete all
 cd $HOME && pm2 start ecosystem.config.js
 pm2 save
-cd $HOME/ultra && clear && npm run
+cd $HOME/ultra && clear && pm2 ls && npm run
