@@ -20,7 +20,7 @@ https://github.com/settings/keys
 clear
 read -p "Enter full name : " name # required for Git
 read -p "Enter email : " email # required for SSH & Git
-read -p "Enter psql password : " password -s # required for postgres
+read -p "Enter psql password : " password # required for postgres
 clear
 
 # SSH Key creation
