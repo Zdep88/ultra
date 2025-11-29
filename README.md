@@ -78,5 +78,5 @@ pm2 startup
 sudo env "PATH=$PATH:$HOME/.nvm/versions/node/$(node -v)/bin" $HOME/.nvm/versions/node/$(node -v)/lib/node_modules/pm2/bin/pm2 startup systemd -u $USER --hp $HOME
 
 # Next installation step
-cd $HOME/ultra && clear && npm run build
+cd $HOME/ultra && npm run build
 ```
