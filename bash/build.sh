@@ -6,6 +6,7 @@ sudo nano .env
 set -a
 source ./.env
 set +a
+vite build
 sudo -i -u postgres psql -c "CREATE ROLE \"$DATABASE_USER\" WITH LOGIN PASSWORD '$DATABASE_PASSWORD'"
 sudo -i -u postgres psql -c "CREATE DATABASE \"$DATABASE_NAME\" OWNER \"$DATABASE_USER\""
 sudo cp $HOME/ultra/templates/server_bloc.txt /etc/nginx/sites-available/$DOMAIN
