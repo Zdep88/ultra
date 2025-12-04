@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node app/index.js",
     "dev": "node --watch app/index.js",
-    "build": "bash scripts/build.sh"
+    "build": "bash scripts/build.sh",
+    "reset": "node app/models/reset.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,10 @@
   "homepage": "https://github.com/Zdep88/ultra#readme",
   "dependencies": {
     "dotenv": "^17.2.3",
-    "express": "^5.2.1"
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
   }
 }
