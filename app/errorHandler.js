@@ -10,6 +10,7 @@ const httpErrorDictionnary = {
 }
 
 const errorHandler = {
+    
     notFound(req, res, next) {
         errorHandler.throwError(404);
     },
