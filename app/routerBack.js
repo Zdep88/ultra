@@ -8,6 +8,7 @@ const routerBack = Router();
 routerBack.get('/', indexController.getIndex);
 
 routerBack.post('/login', usersController.login);
+routerBack.get('/users', usersController.getUsers);
 
 routerBack.use(errorHandler.notFound);
 routerBack.use(errorHandler.errorBack);

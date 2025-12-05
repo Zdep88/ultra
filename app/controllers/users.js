@@ -29,6 +29,48 @@ const usersController = {
             message: "Login successful",
             token
         });
+    },
+
+    auth: async (req, res, next) => {
+        if (!req.headers.authorization) {
+            errorHandler.throwError(401, 'Authorization header is required');
+        }
+        const token = req.headers.authorization.split(' ')[1];
+        if (!token) {
+            errorHandler.throwError(401, 'Bearer token is required');
+        }
+        try {
+            var tokenContent = jwt.verify(token, process.env.JWT_SECRET);
+        } catch (error) {
+            errorHandler.throwError(401, 'Invalid or expired token');
+        }
+        const userId = tokenContent.id;
+        let user = await User.findByPk(userId);
+        if (!user) {
+            errorHandler.throwError(401, 'User not found');
+        }
+        req.user = { id: user.id };
+        next();
+    },
+
+    admin: async (req, res, next) => {
+        await usersController.auth(req, res, () => {
+            if (req.user.id !== 1) {
+                errorHandler.throwError(403, 'Admin access required');
+            }
+            next();
+        });
+    },
+
+    getUsers: async (req, res) => {
+        await usersController.admin(req, res, async () => {
+            const users = await User.findAll();
+            res.status(200).json({
+                statusCode: 200,
+                message: "Users retrieved successfully",
+                users
+            });
+        });
     }
 }
 
