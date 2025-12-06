@@ -1,75 +1,55 @@
-import errorHandler from "../errorHandler.js";
-import { User } from '../models/sequelize.js';
 import argon2 from 'argon2';
-import jwt from 'jsonwebtoken';
+import { User } from '../models/sequelize.js';
+import errorHandler from "../errorHandler.js";
 
 const usersController = {
-    login: async (req, res) => {
+    getAll: async (req, res) => {
+        const users = await User.findAll();
+        res.status(200).json({
+            statusCode: 200,
+            message: "Users retrieved successfully",
+            users
+        });
+    },
+
+    getOne: async (req, res) => {
+        if (!req.params.id) {
+            errorHandler.throwError(400, "User ID is required");
+        }
+        const id = Number(req.params.id);
+        if ( isNaN(id) || !Number.isInteger(id) || id <= 0) {
+            errorHandler.throwError(400, "Invalid user ID");
+        }
+        const user = await User.findByPk(id);
+        if (!user) {
+            errorHandler.throwError(404, "User not found");
+        }
+        res.status(200).json({
+            statusCode: 200,
+            message: "User retrieved successfully",
+            user
+        });
+    },
+
+    create: async (req, res) => {
         if (!req.body) {
             errorHandler.throwError(400, "Request body is missing");
         }
         if (!req.body.name || !req.body.password) {
             errorHandler.throwError(400, "Missing required fields: name and password");
         }
-        const user = await User.findOne({ where: { name: req.body.name } });
-        if (!user) {
-            errorHandler.throwError(401, "Invalid name or password");
+        const gemini = await User.findOne({ where: { name: req.body.name } });
+        if (gemini) {
+            errorHandler.throwError(409, "User with this name already exists");
         }
-        const okPassword = await argon2.verify(user.hash, req.body.password);
-        if (!okPassword) {
-            errorHandler.throwError(401, "Invalid name or password");
-        }
-        const token = jwt.sign({
-            id: user.id,
-        }, process.env.JWT_SECRET, {
-            expiresIn: '7d'
+        const user = await User.create({
+            name: req.body.name,
+            hash: await argon2.hash(req.body.password)
         });
-        res.status(200).json({
-            statusCode: 200,
-            message: "Login successful",
-            token
-        });
-    },
-
-    auth: async (req, res, next) => {
-        if (!req.headers.authorization) {
-            errorHandler.throwError(401, 'Authorization header is required');
-        }
-        const token = req.headers.authorization.split(' ')[1];
-        if (!token) {
-            errorHandler.throwError(401, 'Bearer token is required');
-        }
-        try {
-            var tokenContent = jwt.verify(token, process.env.JWT_SECRET);
-        } catch (error) {
-            errorHandler.throwError(401, 'Invalid or expired token');
-        }
-        const userId = tokenContent.id;
-        let user = await User.findByPk(userId);
-        if (!user) {
-            errorHandler.throwError(401, 'User not found');
-        }
-        req.user = { id: user.id };
-        next();
-    },
-
-    admin: async (req, res, next) => {
-        await usersController.auth(req, res, () => {
-            if (req.user.id !== 1) {
-                errorHandler.throwError(403, 'Admin access required');
-            }
-            next();
-        });
-    },
-
-    getUsers: async (req, res) => {
-        await usersController.admin(req, res, async () => {
-            const users = await User.findAll();
-            res.status(200).json({
-                statusCode: 200,
-                message: "Users retrieved successfully",
-                users
-            });
+        res.status(201).json({
+            statusCode: 201,
+            message: "User created successfully",
+            user
         });
     }
 }
