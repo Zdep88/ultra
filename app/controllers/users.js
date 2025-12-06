@@ -51,6 +51,26 @@ const usersController = {
             message: "User created successfully",
             user
         });
+    },
+
+    delete: async (req, res) => {
+        if (!req.params.id) {
+            errorHandler.throwError(400, "User ID is required");
+        }
+        const id = Number(req.params.id);
+        if ( isNaN(id) || !Number.isInteger(id) || id <= 1) {
+            errorHandler.throwError(400, "Invalid user ID");
+        }
+        const user = await User.findByPk(id);
+        if (!user) {
+            errorHandler.throwError(404, "User not found");
+        }
+        await user.destroy();
+        res.status(200).json({
+            statusCode: 200,
+            message: "User deleted successfully",
+            user
+        });
     }
 }
 

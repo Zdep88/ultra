@@ -77,4 +77,5 @@ sudo env "PATH=$PATH:$HOME/.nvm/versions/node/$(node -v)/bin" $HOME/.nvm/version
 
 # Next installation step
 cd $HOME && git clone git@github.com:Zdep88/ultra.git
+cd $HOME/ultra && npm run build
 ```

@@ -16,6 +16,7 @@ routerBack.use('/users', authController.auth, authController.admin);
 routerBack.get('/users', usersController.getAll);
 routerBack.get('/users/:id', usersController.getOne);
 routerBack.post('/users', usersController.create);
+routerBack.delete('/users/:id', usersController.delete);
 
 routerBack.use(errorHandler.notFound);
 routerBack.use(errorHandler.errorBack);
